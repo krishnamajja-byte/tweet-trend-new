@@ -1,7 +1,7 @@
 pipeline {
     agent {
         node {
-            label 'maven-build'
+            label 'Maven_build'
         }
     }
     environment {
