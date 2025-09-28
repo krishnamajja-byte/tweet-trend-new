@@ -5,13 +5,13 @@ pipeline {
         }
     }
     environment {
-        PATH = "/opt/apache-maven-3.9.11/bin:/usr/lib/jvm/java-17-openjdk-amd64:$PATH"
+        PATH = "/opt/apache-maven-3.9.11/bin:$PATH"
     }
 
     stages {
         stage("build") {
             steps {
-                sh 'mvn -X clean deploy'
+                sh 'mvn clean deploy'
             }
         }
     
