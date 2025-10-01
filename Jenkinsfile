@@ -1,4 +1,6 @@
  def registry = 'https://trial8e5t2j.jfrog.io'
+ def imageName = 'trial8e5t2j.jfrog.io/krishna-docker-local/ttrend'
+   def version   = '2.1.2'
 pipeline {
     agent {
         node {
@@ -42,5 +44,29 @@ pipeline {
             }
         }   
     }  
+
+    
+    stage(" Docker Build ") {
+      steps {
+        script {
+           echo '<--------------- Docker Build Started --------------->'
+           app = docker.build(imageName+":"+version)
+           echo '<--------------- Docker Build Ends --------------->'
+        }
+      }
+    }
+
+            stage (" Docker Publish "){
+        steps {
+            script {
+               echo '<--------------- Docker Publish Started --------------->'  
+                docker.withRegistry(registry, 'Jfrog'){
+                    app.push()
+                }    
+               echo '<--------------- Docker Publish Ended --------------->'  
+            }
+        }
+    }
+
  }
 }
